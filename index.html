@@ -1,1 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>EviLink — Интернет в ваш дом | Тарифы и подключение</title>
+  <!-- Современный шрифт Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    /* Сброс стилей */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --primary-deep-blue: #0B1E3F;
+      --primary-white: #FFFFFF;
+      --accent-green: #00E5A0;
+      --accent-green-hover: #00C88F;
+      --gray-light: #F4F6FA;
+      --gray-border: #E2E8F0;
+      --gray-text: #64748B;
+      --error-red: #EF4444;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --header-height: 64px;
+    }
 
+    body {
+      font-family: var(--font-family);
+      background-color: var(--primary-white);
+      color: var(--primary-deep-blue);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+      padding-top: var(--header-height);
+      padding-bottom: 80px; /* Отступ для нижней фикс. кнопки */
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* ====== АДАПТИВНАЯ ШАПКА (mobile-first) ====== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: var(--primary-white);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      z-index: 1000;
+      gap: 0.5rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-deep-blue);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--accent-green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-deep-blue);
+      font-weight: 700;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+      transition: 0.2s;
+      text-decoration: none;
+      white-space: nowrap;
+      font-family: var(--font-family);
+    }
+
+    .btn-primary {
+      background: var(--accent-green);
+      color: var(--primary-deep-blue);
+    }
+
+    .btn-primary:hover { background: var(--accent-green-hover); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--gray-border);
+      color: var(--primary-deep-blue);
+    }
+
+    .btn-lg {
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 14px;
+    }
+
+    .btn-block { width: 100%; }
+
+    /* Кнопка телефона в шапке */
+    .phone-call-btn {
+      background: var(--gray-light);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-deep-blue);
+      flex-shrink: 0;
+    }
+
+    /* Бургер-иконка */
+    .burger-btn {
+      background: transparent;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      z-index: 1001;
+    }
+    .burger-btn span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--primary-deep-blue);
+      border-radius: 2px;
+    }
+
+    /* Мобильное меню (скрыто по умолчанию) */
+    .mobile-menu {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      background: var(--primary-white);
+      padding: 1rem;
+      border-top: 1px solid var(--gray-border);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      display: none;
+      flex-direction: column;
+      gap: 0.25rem;
+      z-index: 999;
+    }
+    .mobile-menu.active { display: flex; }
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: var(--primary-deep-blue);
+      font-weight: 500;
+      border-radius: 10px;
+    }
+    .mobile-menu a:hover { background: var(--gray-light); }
+
+    /* Секции */
+    .section {
+      padding: 2rem 0;
+    }
+
+    /* ====== HERO (мобильный) ====== */
+    .hero-title {
+      font-size: clamp(1.75rem, 8vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      color: var(--gray-text);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .address-check-block {
+      background: var(--gray-light);
+      padding: 1.25rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+    }
+
+    .address-check-label {
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .address-input-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .input {
+      flex: 1 1 200px;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--gray-border);
+      border-radius: 12px;
+      font-size: 1rem;
+      background: var(--primary-white);
+      font-family: var(--font-family);
+      min-width: 0;
+    }
+
+    .input:focus {
+      outline: none;
+      border-color: var(--accent-green);
+      box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.15);
+    }
+
+    .check-btn {
+      background: var(--accent-green);
+      color: var(--primary-deep-blue);
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: var(--font-family);
+    }
+
+    /* Статус проверки */
+    .check-status {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      display: none;
+    }
+    .check-status.success {
+      background: #E6F9F1;
+      color: #0B5E3C;
+      display: block;
+    }
+    .check-status.error {
+      background: #FEF2F2;
+      color: var(--error-red);
+      display: block;
+    }
+
+    /* ====== ТАРИФЫ (адаптивная сетка) ====== */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .tariffs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .tariffs-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .tariffs-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .tariff-card {
+      background: var(--primary-white);
+      border: 1.5px solid var(--gray-border);
+      border-radius: 20px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: 0.2s;
+    }
+
+    .tariff-card.featured {
+      border-color: var(--accent-green);
+      background: #FAFFFD;
+    }
+
+    .tariff-speed {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .tariff-speed span {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gray-text);
+    }
+
+    .tariff-price {
+      font-weight: 600;
+    }
+
+    .tariff-features {
+      list-style: none;
+      font-size: 0.875rem;
+      color: var(--gray-text);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tariff-features li::before {
+      content: "✓";
+      color: var(--accent-green);
+      margin-right: 0.5rem;
+      font-weight: 700;
+    }
+
+    .badge {
+      background: var(--accent-green);
+      color: var(--primary-deep-blue);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+
+    /* ====== ПРЕИМУЩЕСТВА ====== */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 500px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .feature-item {
+      background: var(--gray-light);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-item h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .feature-item p {
+      font-size: 0.875rem;
+      color: var(--gray-text);
+    }
+
+    /* ====== ПОДВАЛ ====== */
+    .footer {
+      background: var(--primary-deep-blue);
+      color: var(--primary-white);
+      padding: 2rem 0;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: var(--accent-green);
+      text-decoration: none;
+    }
+
+    /* ====== ФИКСИРОВАННАЯ КНОПКА НА МОБИЛЬНОМ ====== */
+    .mobile-fab {
+      position: fixed;
+      bottom: 16px;
+      left: 1rem;
+      right: 1rem;
+      z-index: 998;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-fab {
+        display: none;
+      }
+    }
+
+    /* Плавный скролл */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== ШАПКА ====== -->
+  <header class="header">
+    <a href="/" class="logo">
+      <div class="logo-icon">E</div>
+      EviLink
+    </a>
+    <div class="header-actions">
+      <a href="tel:+74951234567" class="phone-call-btn" aria-label="Позвонить">
+        📞
+      </a>
+      <button class="burger-btn" id="burgerBtn" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Мобильное меню -->
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#">Интернет</a>
+    <a href="#">ТВ</a>
+    <a href="#">Видеонаблюдение</a>
+    <a href="#">Домофония</a>
+    <a href="#">Акции</a>
+    <a href="#">Оплата</a>
+    <a href="#">Поддержка</a>
+    <a href="#">Контакты</a>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section class="section container">
+      <h1 class="hero-title">Интернет в ваш дом — быстро и надёжно</h1>
+      <p class="hero-subtitle">Котельники, Люберцы, Мячково и другие районы</p>
+      
+      <!-- Проверка адреса -->
+      <div class="address-check-block">
+        <label class="address-check-label">Проверьте подключение по адресу</label>
+        <div class="address-input-group">
+          <input type="text" class="input" placeholder="Улица, дом" id="addressInput">
+          <button class="check-btn" id="checkBtn">Проверить</button>
+        </div>
+        <div class="check-status" id="checkStatus"></div>
+      </div>
+    </section>
+
+    <!-- ТАРИФЫ -->
+    <section class="section container">
+      <h2 class="section-title">Популярные тарифы</h2>
+      <div class="tariffs-grid">
+        <div class="tariff-card">
+          <span class="badge">Выгодный</span>
+          <div class="tariff-speed">100 <span>Мбит/с</span></div>
+          <div class="tariff-price">450 ₽/мес</div>
+          <ul class="tariff-features">
+            <li>Безлимитный интернет</li>
+            <li>Wi-Fi роутер в аренду</li>
+            <li>Подключение за 1 день</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Подключить</button>
+        </div>
+        <div class="tariff-card featured">
+          <span class="badge">Рекомендуем</span>
+          <div class="tariff-speed">300 <span>Мбит/с</span></div>
+          <div class="tariff-price">650 ₽/мес</div>
+          <ul class="tariff-features">
+            <li>Для всей семьи и 4K-видео</li>
+            <li>Wi-Fi 6 роутер</li>
+            <li>Статический IP (опция)</li>
+          </ul>
+          <button class="btn btn-primary btn-block">Подключить</button>
+        </div>
+        <div class="tariff-card">
+          <span class="badge">Для геймеров</span>
+          <div class="tariff-speed">500 <span>Мбит/с</span></div>
+          <div class="tariff-price">850 ₽/мес</div>
+          <ul class="tariff-features">
+            <li>Максимальная скорость</li>
+            <li>GPON-подключение</li>
+            <li>Приоритет в поддержке</li>
+          </ul>
+          <button class="btn btn-outline btn-block">Подключить</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПРЕИМУЩЕСТВА -->
+    <section class="section container">
+      <h2 class="section-title">Почему выбирают нас</h2>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h3>Высокая скорость</h3>
+          <p>Современная оптика GPON до 500 Мбит/с</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🛡️</div>
+          <h3>Надёжность 24/7</h3>
+          <p>Служба поддержки всегда на связи</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📍</div>
+          <h3>Рядом с вами</h3>
+          <p>Обслуживаем конкретные ЖК и районы</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">💬</div>
+          <h3>Честные условия</h3>
+          <p>Без скрытых платежей и мелкого шрифта</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 EviLink. Все права защищены.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="#">Политика конфиденциальности</a> · 
+        <a href="#">Контакты</a> · 
+        <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Фиксированная кнопка "Заявка" -->
+  <div class="mobile-fab">
+    <button class="btn btn-primary btn-block btn-lg" style="box-shadow: 0 4px 16px rgba(0,229,160,0.4);">
+      Оставить заявку
+    </button>
+  </div>
+
+  <script>
+    // Бургер-меню
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    burgerBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    // Закрытие меню при клике на ссылку
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    });
+
+    // Имитация проверки адреса
+    const checkBtn = document.getElementById('checkBtn');
+    const addressInput = document.getElementById('addressInput');
+    const checkStatus = document.getElementById('checkStatus');
+
+    checkBtn.addEventListener('click', () => {
+      const address = addressInput.value.trim();
+      if (!address) {
+        checkStatus.className = 'check-status error';
+        checkStatus.textContent = 'Пожалуйста, введите адрес';
+        return;
+      }
+      
+      // Имитация запроса
+      checkStatus.className = 'check-status';
+      checkStatus.textContent = 'Проверяем...';
+      checkStatus.style.display = 'block';
+      
+      setTimeout(() => {
+        if (address.toLowerCase().includes('белые') || address.toLowerCase().includes('люберцы')) {
+          checkStatus.className = 'check-status success';
+          checkStatus.innerHTML = '✅ Отлично! Ваш дом подключен. <a href="#" style="color:#0B5E3C;font-weight:600;">Выбрать тариф</a>';
+        } else {
+          checkStatus.className = 'check-status error';
+          checkStatus.textContent = '❌ К сожалению, ваш адрес пока не в зоне покрытия. Оставьте заявку — мы свяжемся, когда появится возможность.';
+        }
+      }, 800);
+    });
+  </script>
+</body>
+</html>
